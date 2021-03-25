@@ -8,9 +8,15 @@
 
         <h1>{{ pin.title }}</a></h1>
         <p>{{ pin.description }}</p>
-
+        <a href="#" onclick="event.preventDefault();
+            confirm('Etes vous sûr de vouloir supprimer ce pin?') &&
+            document.getElementById('js-pin-delete-form').submit()">Supprimer le Pin
+        </a>
         <a href="{{ path('app_pins_edit', {'id' : pin.id}) }}">Editer le Pin</a>
-{#        <a href="{{ path('app_pin_delete') }}">Supprimer le Pin</a>#}
+
+        <form id="js-pin-delete-form" action="{{ path('app_pins_delete',{ 'id' : pin.id}) }}" style="display: none">
+            <input type="hidden" name="_methode" value="DELETE">
+        </form>
 
     </article>
 

@@ -26,6 +26,39 @@ class PinsController extends AbstractController
     }
 
     /**
+     * @Route("/pins/create", name="app_pins_create", methods={"GET","PUT"})
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+
+    public function create(Request $request, EntityManagerInterface $em) : Response
+    {
+
+        $pin = new Pin;
+
+        $form = $this->createForm(PinType::class, $pin,
+            [
+                'method' => 'PUT'
+            ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($pin);
+            $em->flush();
+
+            return $this->redirectToRoute("app_home");
+        }
+
+        return $this->render('pins/create.html.twig',
+            [
+                'form' => $form->createView()
+            ]);
+    }
+
+    /**
      * @Route("/pins/{id<[0-9]+>}", name="app_pins_show", methods={"GET"})
      * @param Pin $pin
      * @return Response
@@ -42,6 +75,7 @@ class PinsController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */
+
     public function edit(Pin $pin, Request $request, EntityManagerInterface $em) : Response
     {
         $form = $this->createForm(PinType::class, $pin,
@@ -66,35 +100,16 @@ class PinsController extends AbstractController
     }
 
     /**
-     * @Route("/pins/create", name="app_pins_create", methods={"GET","PUT"})
-     * @param Request $request
+     * @Route("/pins/{id<[0-9]+>}/delete", name="app_pins_delete", methods={"GET"})
+     * @param Pin $pin
      * @param EntityManagerInterface $em
      * @return Response
      */
-
-    public function create(Request $request, EntityManagerInterface $em) : Response
+    public function delete(Pin $pin, EntityManagerInterface $em) : Response
     {
+        $em->remove($pin);
+        $em->flush();
 
-        $pin = new Pin;
-
-        $form = $this->createForm(PinType::class, $pin,
-        [
-            'method' => 'PUT'
-        ]);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $em->persist($pin);
-            $em->flush();
-
-            return $this->redirectToRoute("app_home");
-        }
-
-        return $this->render('pins/create.html.twig',
-            [
-                'form' => $form->createView()
-            ]);
+        return $this->redirectToRoute('app_home');
     }
 }
