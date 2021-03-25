@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Pin;
+use App\Form\PinType;
 use App\Repository\PinRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,7 +36,7 @@ class PinsController extends AbstractController
     }
 
     /**
-     * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit", methods={"GET","POST"})
+     * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit", methods={"GET","PUT"})
      * @param Pin $pin
      * @param Request $request
      * @param EntityManagerInterface $em
@@ -46,11 +44,10 @@ class PinsController extends AbstractController
      */
     public function edit(Pin $pin, Request $request, EntityManagerInterface $em) : Response
     {
-        $form = $this->createFormBuilder($pin)
-            ->add('title',TextType::class)
-            ->add('description',TextareaType::class)
-            ->getForm()
-        ;
+        $form = $this->createForm(PinType::class, $pin,
+        [
+            'method' => 'PUT'
+        ]);
 
         $form->handleRequest($request);
 
@@ -69,11 +66,10 @@ class PinsController extends AbstractController
     }
 
     /**
-     * @Route("/pins/create", name="app_pins_create", methods={"GET","POST"})
+     * @Route("/pins/create", name="app_pins_create", methods={"GET","PUT"})
      * @param Request $request
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      * @return Response
-     * @throws ORMException
      */
 
     public function create(Request $request, EntityManagerInterface $em) : Response
@@ -81,11 +77,10 @@ class PinsController extends AbstractController
 
         $pin = new Pin;
 
-        $form = $this->createFormBuilder($pin)
-            ->add('title',TextType::class)
-            ->add('description',TextareaType::class)
-            ->getForm()
-        ;
+        $form = $this->createForm(PinType::class, $pin,
+        [
+            'method' => 'PUT'
+        ]);
 
         $form->handleRequest($request);
 
