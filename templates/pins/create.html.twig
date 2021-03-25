@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Pinterest | New Pin" %}
+
+{% block body %}
+
+    <h1> Create Pin </h1>
+
+    <article>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Crée le Pin">
+        {{ form_end(form) }}
+
+    </article>
+
+
+{% endblock %}

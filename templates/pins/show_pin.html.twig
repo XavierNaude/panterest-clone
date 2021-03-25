@@ -9,6 +9,9 @@
         <h1>{{ pin.title }}</a></h1>
         <p>{{ pin.description }}</p>
 
+        <a href="{{ path('app_pins_edit', {'id' : pin.id}) }}">Editer le Pin</a>
+{#        <a href="{{ path('app_pin_delete') }}">Supprimer le Pin</a>#}
+
     </article>
 
     <p><a href="{{ path('app_home') }}">Retour à la page d'acceuil</a></p>
