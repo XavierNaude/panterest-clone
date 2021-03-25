@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Pinterest | Acceuil" %}
+
+{% block body %}
+
+    <article>
+
+        <h1>{{ pin.title }}</a></h1>
+        <p>{{ pin.description }}</p>
+
+    </article>
+
+    <p><a href="{{ path('app_home') }}">Retour à la page d'acceuil</a></p>
+
+{% endblock %}
