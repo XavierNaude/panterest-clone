@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            <style>
+                .alert{
+                    padding: 10px;
+                    color: white;
+                    text-align: center;
+                }
+
+                .alert-success{
+                    background-color: green;
+                }
+
+                .alert-error{
+                    background-color: red;
+                }
+
+                .alert-info{
+                    background-color: blue;
+                }
+            </style>
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <header>
+        <div>
+            {{ include('layouts/partials/_flash_message.html.twig') }}
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ path('app_home') }}">Retour à l'acceuil</a></li>
+                <li><a href="{{ path('app_pins_create') }}">Crée un nouveau pin</a></li>
+            </ul>
+        </nav>
+    </header>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

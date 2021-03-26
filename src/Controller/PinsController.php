@@ -49,6 +49,8 @@ class PinsController extends AbstractController
             $em->persist($pin);
             $em->flush();
 
+            $this->addFlash('success','Le pin à bien été crée !');
+
             return $this->redirectToRoute("app_home");
         }
 
@@ -89,6 +91,8 @@ class PinsController extends AbstractController
         {
             $em->flush();
 
+            $this->addFlash('success','Le pin à bien été modifié!');
+
             return $this->redirectToRoute("app_home");
         }
 
@@ -115,6 +119,8 @@ class PinsController extends AbstractController
         {
             $em->remove($pin);
             $em->flush();
+
+            $this->addFlash('info','Le pin a bien été supprimé!');
         }
 
         return $this->redirectToRoute('app_home');
