@@ -3,14 +3,15 @@
 {% block title "Pinterest | New Pin" %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1> Crée le Pin </h1>
+            <article>
 
-    <h1> Create Pin </h1>
+                {{ include('pins/_form.html.twig') }}
 
-    <article>
-
-        {{ include('pins/_form.html.twig') }}
-
-    </article>
-
+            </article>
+        </div>
+    </div>
 
 {% endblock %}

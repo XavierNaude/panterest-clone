@@ -48,7 +48,7 @@ class Pin
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -60,7 +60,7 @@ class Pin
         return $this->Description;
     }
 
-    public function setDescription(string $Description): self
+    public function setDescription(?string $Description): self
     {
         $this->Description = $Description;
 

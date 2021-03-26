@@ -3,14 +3,16 @@
 {% block title "Pinterest | Edit Pin #" ~ pin.id %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1> Editer le Pin </h1>
+            <article>
 
-    <h1> Editer le Pin {{ pin.id}} </h1>
+            {{ include('pins/_form.html.twig', {submitButtonText:'Editer le Pin'}) }}
 
-    <article>
-
-        {{ include('pins/_form.html.twig', {submitButtonText:'Editer le Pin'}) }}
-
-    </article>
+            </article>
+        </div>
+    </div>
 
 
 {% endblock %}
