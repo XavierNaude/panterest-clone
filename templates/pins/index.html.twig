@@ -21,7 +21,7 @@
                         <h2 class="h5 pl-3 pt-3">
                             <a href="{{ path('app_pins_show', {id: pin.id}) }}" class="text-secondary text-decoration-none">{{ pin.title }}</a>
                         </h2>
-                        <p class="text-muted pl-3 pb-3"><small>Crée par [OWNER FULL NAME]</small> {{ pin.createdAt|ago(locale='fr') }}</p>
+                        <p class="text-muted pl-3 pb-3"><small>Crée par {{ pin.user.fullName }}</small> {{ pin.createdAt|ago(locale='fr') }}</p>
                     </article>
                 </div>
 

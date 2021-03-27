@@ -17,7 +17,7 @@
                     <a href="{{ path('app_pins_show', {id: pin.id}) }}" class="text-secondary text-decoration-none">{{ pin.title }}</a>
                 </h1>
                 <p class="text-muted pl-3 pb-3">
-                    <small>Crée par [OWNER FULL NAME]</small>
+                    <small>Crée par {{ pin.user.fullName }}</small>
                     <time datetime="{{ pin.createdAt|date('d-m-Y H:i:s') }}">{{ pin.createdAt|ago(locale='fr') }}</time>
                 </p>
 
