@@ -24,3 +24,9 @@ require('bootstrap');
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });
+
+
+$('.custom-file-input').on('change',(e) => {
+    let inputFile = e.currentTarget;
+    $(inputFile).parent().find('.custom-file-label').html(inputFile.files[0].name)
+})
