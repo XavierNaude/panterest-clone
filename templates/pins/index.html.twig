@@ -4,17 +4,36 @@
 
 {% block body %}
 
-    <h1>{{ pluralize(pins|length, 'Pin') }} </h1>
+    {% if pins|length > 0 %}
 
-    <section>
+    <h1 class="mb-4 text-center text-muted">{{ pluralize(pins|length, 'Pin') }} </h1>
 
-        {% for pin in pins %}
-            <article>
-                <h2><a href="{{ path('app_pins_show', {id: pin.id}) }}">{{ pin.title }}</a></h2>
-                <p>{{ pin.description|u.truncate(15, '.....', false)  }}</p>
-                <p>Crée {{ pin.createdAt|ago(locale='fr') }}</p>
-            </article>
+        {% for row in pins|batch(3) %}
+        <div class="row mb-5">
+            {% for pin in row %}
+                <div class="col-md-4">
+                    <article class="pin bg-white rounded shadow">
+                        <div class="mw-100 overflow-hidden">
+                            <a href="{{ path('app_pins_show', {id: pin.id}) }}">
+                                <img src="{{ (pin.imageName ? vich_uploader_asset(pin) :asset('build/images/placeholder.jpeg')) |imagine_filter('squared_thumbnail_medium') }}" alt="{{ pin.title }}" class="w-100 rounded-top"/>
+                            </a>
+                        </div>
+                        <h2 class="h5 pl-3 pt-3">
+                            <a href="{{ path('app_pins_show', {id: pin.id}) }}" class="text-secondary text-decoration-none">{{ pin.title }}</a>
+                        </h2>
+                        <p class="text-muted pl-3 pb-3"><small>Crée par [OWNER FULL NAME]</small> {{ pin.createdAt|ago(locale='fr') }}</p>
+                    </article>
+                </div>
+
+            {% endfor %}
+        </div>
         {% endfor %}
+    {% else %}
 
-    </section>
+        <article class="mt-5">
+            <h1 class="text-center">Il n'y a pas de Pin</h1>
+            <p class="text-center"> <a href="{{ path('app_pins_create') }}">Crée le premier!</a></p>
+        </article>
+
+    {% endif %}
 {% endblock %}
