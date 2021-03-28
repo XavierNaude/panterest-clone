@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pin;
 use App\Form\PinType;
 use App\Repository\PinRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,7 @@ class PinsController extends AbstractController
      * @return Response
      */
 
-    public function create(Request $request, EntityManagerInterface $em) : Response
+    public function create(Request $request, EntityManagerInterface $em, UserRepository $userRepo) : Response
     {
 
         $pin = new Pin;
@@ -46,6 +47,7 @@ class PinsController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $pin->setUser($userRepo->find(2));
             $em->persist($pin);
             $em->flush();
 
