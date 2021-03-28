@@ -22,10 +22,10 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
-###> custom env vars ###
+###> custom ignores ###
 public/upload/
 .DS_Store
-###< end custom env vars ###
+###< end custom ignores ###
 
 ###> liip/imagine-bundle ###
 /public/media/cache/
