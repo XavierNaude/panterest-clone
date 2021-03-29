@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
