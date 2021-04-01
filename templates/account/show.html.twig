@@ -8,7 +8,7 @@
     <div class="col-md-6 mx-auto text-center">
         <h1 class="my-5">Profil</h1>
 
-        <img class="rounded-circle shadow" src="{{ app.user.gravatar  }}" alt="Avatar de {{ app.user.fullName }}">
+        <img class="rounded-circle shadow" src="{{ app.user.getGravatarUrl  }}" alt="Avatar de {{ app.user.fullName }}">
 
         <p class="mt-5 lead">{{ app.user.email }}</p>
         <p class="h2">{{ app.user.fullName }}</p>
