@@ -1,15 +1,12 @@
 
-{% if(path(app.request.attributes.get('_route')) == '/') and (user) and (user.isverified == false) %}
+{% if(path(app.request.attributes.get('_route')) == '/') and (user) and (user.isverified == false) and (app.request.get('send_email') is null) %}
 
-<div>
-    <div class="alert alert-info">
-        <p class="m-0"><a class="text-white" href="">Email non vérifié clicker ici pour renvoyer un email de verification</a></p>
-    </div>
-</div>
-
+        <div>
+            <div class="alert alert-info">
+                <p class="m-0"><a class="text-white" href="{{ path('app_send_back_email_verify') }}">Email non vérifié clicker ici pour renvoyer un email de verification</a></p>
+            </div>
+        </div>
 {% endif %}
-
-
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
     <div class="container">
