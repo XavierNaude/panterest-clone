@@ -44,7 +44,7 @@ class ResetPasswordController extends AbstractController
             $this->addFlash('error','Vous êtes déjà connecté!');
             return $this->redirectToRoute('app_home');
         }
-        
+
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
 

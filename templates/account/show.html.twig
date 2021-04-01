@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Profil | Pantarest' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-6 mx-auto text-center">
+        <h1 class="my-5">Profil</h1>
+
+        <img class="rounded-circle shadow" src="{{ app.user.gravatar  }}" alt="Avatar de {{ app.user.fullName }}">
+
+        <p class="mt-5 lead">{{ app.user.email }}</p>
+        <p class="h2">{{ app.user.fullName }}</p>
+
+        <p>
+            <a href="">Editer le compte</a>
+            |
+            <a href="">Modifier le mot de passe</a>
+        </p>
+        
+    </div>
+</div>
+
+
+{% endblock %}
+
