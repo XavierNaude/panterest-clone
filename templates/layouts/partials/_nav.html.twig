@@ -1,4 +1,14 @@
 
+{% if(path(app.request.attributes.get('_route')) == '/') and (user) and (user.isverified == false) %}
+
+<div>
+    <div class="alert alert-info">
+        <p class="m-0"><a class="text-white" href="">Email non vérifié clicker ici pour renvoyer un email de verification</a></p>
+    </div>
+</div>
+
+{% endif %}
+
 
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
