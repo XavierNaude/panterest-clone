@@ -25,6 +25,7 @@ yarn-error.log
 ###> custom ignores ###
 public/upload/
 .DS_Store
+.idea
 ###< end custom ignores ###
 
 ###> liip/imagine-bundle ###
