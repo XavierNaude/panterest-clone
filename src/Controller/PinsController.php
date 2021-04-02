@@ -83,7 +83,6 @@ class PinsController extends AbstractController
      * @return Response
      * @IsGranted("PIN_MANAGE",subject="pin")
      */
-
     public function edit(Pin $pin, Request $request, EntityManagerInterface $em) : Response
     {
         $form = $this->createForm(PinType::class, $pin,
