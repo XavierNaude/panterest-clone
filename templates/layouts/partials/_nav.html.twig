@@ -1,11 +1,14 @@
 
-{% if(path(app.request.attributes.get('_route')) == '/') and (user) and (user.isverified == false) and (app.request.get('send_email') is null) %}
-
+{% if((app.user)) %}
+{% if(app.user.isverified == false)%}
+{% if(app.request.get('send_email') is null) %}
         <div>
             <div class="alert alert-info">
                 <p class="m-0"><a class="text-white" href="{{ path('app_send_back_email_verify') }}">Email non vérifié clicker ici pour renvoyer un email de verification</a></p>
             </div>
         </div>
+{% endif %}
+{% endif %}
 {% endif %}
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">

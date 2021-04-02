@@ -27,19 +27,20 @@
                         {{ pin.description }}
                     </p>
 
+                    {% if app.user == pin.user %}
                     <div class="pt-3">
 
                         <a
-                                href="#" onclick="event.preventDefault();
-                    confirm('Etes vous sûr de vouloir supprimer ce pin?') &&
-                    document.getElementById('js-pin-delete-form').submit()"
-                                class="btn btn-light">
+                            href="#" onclick="event.preventDefault();
+                            confirm('Etes vous sûr de vouloir supprimer ce pin?') &&
+                            document.getElementById('js-pin-delete-form').submit()"
+                            class="btn btn-danger">
                             Supprimer le Pin
                         </a>
 
                         <a
-                                href="{{ path('app_pins_edit', {'id' : pin.id}) }}"
-                                class="btn btn-light">
+                            href="{{ path('app_pins_edit', {'id' : pin.id}) }}"
+                            class="btn btn-light">
                             Editer le Pin
                         </a>
 
@@ -48,6 +49,7 @@
                             <input type="hidden" name="_method" value="DELETE">
                         </form>
                     </div>
+                    {% endif %}
                 </div>
 
             </article>

@@ -36,6 +36,17 @@ class PinsController extends AbstractController
 
     public function create(Request $request, EntityManagerInterface $em, UserRepository $userRepo) : Response
     {
+        if(!$this->getUser())
+        {
+            $this->addFlash('error','Se connecter avant d\'ajouter un Pin');
+            return $this->redirectToRoute('app_login');
+        }
+
+        if(!$this->getUser()->isVerified())
+        {
+            $this->addFlash('error','Merci de vérifier votre adresse mail avant d\'ajouter un Pin');
+            return $this->redirectToRoute('app_home');
+        }
 
         $pin = new Pin;
 
@@ -83,6 +94,25 @@ class PinsController extends AbstractController
 
     public function edit(Pin $pin, Request $request, EntityManagerInterface $em) : Response
     {
+        if(!$this->getUser())
+        {
+            $this->addFlash('error','Vous devez être le créateur du pin pour le modifier');
+            return $this->redirectToRoute('app_home');
+        }
+
+        if(!$this->getUser()->isVerified())
+        {
+            $this->addFlash('error','Vous devez être le créateur du pin pour le modifier');
+            return $this->redirectToRoute('app_home');
+        }
+
+
+        if($this->getUser()->getId() !== $pin->getUser())
+        {
+            $this->addFlash('error','Vous devez être le créateur du pin pour le modifier');
+            return $this->redirectToRoute('app_home');
+        }
+
         $form = $this->createForm(PinType::class, $pin,
         [
             'method' => 'PUT'
@@ -115,7 +145,24 @@ class PinsController extends AbstractController
      */
     public function delete(Request $req,Pin $pin, EntityManagerInterface $em) : Response
     {
+        if(!$this->getUser())
+        {
+            $this->addFlash('error','Vous devez être le créateur du pin pour le supprimer');
+            return $this->redirectToRoute('app_home');
+        }
 
+        if(!$this->getUser()->isVerified())
+        {
+            $this->addFlash('error','Vous devez être le créateur du pin pour le supprimer');
+            return $this->redirectToRoute('app_home');
+        }
+
+
+        if($this->getUser()->getId() !== $pin->getUser())
+        {
+            $this->addFlash('error','Vous devez être le créateur du pin pour le supprimer');
+            return $this->redirectToRoute('app_home');
+        }
 
 
         if($this->isCsrfTokenValid('pin_deletion_'.$pin->getId(),$req->request->get('csrf_token')))
