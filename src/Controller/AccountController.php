@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Form\ChangePasswordFormType;
 use App\Form\UserFormType;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * Class AccountController
  * @package App\Controller
  * @Route("/account")
+ * @IsGranted("ROLE_USER")
  */
 class AccountController extends AbstractController
 {
@@ -24,11 +25,6 @@ class AccountController extends AbstractController
      */
     public function show() : Response
     {
-        if(!$this->getUser())
-        {
-            $this->addFlash('error','Se connecter avant de modifier votre profil');
-            return $this->redirectToRoute('app_login');
-        }
         return $this->render('account/show.html.twig');
     }
 
@@ -39,12 +35,6 @@ class AccountController extends AbstractController
 
     public function edit(Request $request, EntityManagerInterface $em) : Response
     {
-        if(!$this->getUser())
-        {
-            $this->addFlash('error','Se connecter avant de modifier votre profil');
-            return $this->redirectToRoute('app_login');
-        }
-
         $user = $this->getUser();
 
         $form = $this->createForm(UserFormType::class, $user);
@@ -71,12 +61,6 @@ class AccountController extends AbstractController
      */
     public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder) : Response
     {
-        if(!$this->getUser())
-        {
-            $this->addFlash('error','Se connecter avant de modifier votre profil');
-            return $this->redirectToRoute('app_login');
-        }
-
         $user = $this->getUser();
         $form = $this->createForm(ChangePasswordFormType::class,null,[
             'current_password_is_required' => true
