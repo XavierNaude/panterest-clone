@@ -27,7 +27,7 @@
                         {{ pin.description }}
                     </p>
 
-                    {% if app.user == pin.user %}
+                    {% if is_granted('PIN_MANAGE', pin) %}
                     <div class="pt-3">
 
                         <a

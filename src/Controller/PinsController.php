@@ -7,6 +7,8 @@ use App\Form\PinType;
 use App\Repository\PinRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,22 +34,11 @@ class PinsController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
+     * @Security("is_granted('ROLE_USER') && user.isVerified()")
      */
 
     public function create(Request $request, EntityManagerInterface $em, UserRepository $userRepo) : Response
     {
-        if(!$this->getUser())
-        {
-            $this->addFlash('error','Se connecter avant d\'ajouter un Pin');
-            return $this->redirectToRoute('app_login');
-        }
-
-        if(!$this->getUser()->isVerified())
-        {
-            $this->addFlash('error','Merci de vérifier votre adresse mail avant d\'ajouter un Pin');
-            return $this->redirectToRoute('app_home');
-        }
-
         $pin = new Pin;
 
         $form = $this->createForm(PinType::class, $pin,
@@ -90,29 +81,11 @@ class PinsController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
+     * @IsGranted("PIN_MANAGE",subject="pin")
      */
 
     public function edit(Pin $pin, Request $request, EntityManagerInterface $em) : Response
     {
-        if(!$this->getUser())
-        {
-            $this->addFlash('error','Vous devez être le créateur du pin pour le modifier');
-            return $this->redirectToRoute('app_home');
-        }
-
-        if(!$this->getUser()->isVerified())
-        {
-            $this->addFlash('error','Vous devez être le créateur du pin pour le modifier');
-            return $this->redirectToRoute('app_home');
-        }
-
-
-        if($this->getUser()->getId() !== $pin->getUser())
-        {
-            $this->addFlash('error','Vous devez être le créateur du pin pour le modifier');
-            return $this->redirectToRoute('app_home');
-        }
-
         $form = $this->createForm(PinType::class, $pin,
         [
             'method' => 'PUT'
@@ -142,29 +115,10 @@ class PinsController extends AbstractController
      * @param Pin $pin
      * @param EntityManagerInterface $em
      * @return Response
+     * @IsGranted("PIN_MANAGE",subject="pin")
      */
     public function delete(Request $req,Pin $pin, EntityManagerInterface $em) : Response
     {
-        if(!$this->getUser())
-        {
-            $this->addFlash('error','Vous devez être le créateur du pin pour le supprimer');
-            return $this->redirectToRoute('app_home');
-        }
-
-        if(!$this->getUser()->isVerified())
-        {
-            $this->addFlash('error','Vous devez être le créateur du pin pour le supprimer');
-            return $this->redirectToRoute('app_home');
-        }
-
-
-        if($this->getUser()->getId() !== $pin->getUser())
-        {
-            $this->addFlash('error','Vous devez être le créateur du pin pour le supprimer');
-            return $this->redirectToRoute('app_home');
-        }
-
-
         if($this->isCsrfTokenValid('pin_deletion_'.$pin->getId(),$req->request->get('csrf_token')))
         {
             $em->remove($pin);
