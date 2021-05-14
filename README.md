@@ -4,6 +4,7 @@ Clone de pinterest en suivant le tutoriel des TEACHERS DU NET
 
     *Docker
     *Docker-compose
+    *Port : 8000 - 8080 - 1080 non utilisés. 
 
 ### Lancer l'environement de développement
 
@@ -29,4 +30,4 @@ Quand le message «app_composer exited with code 0» sera visible dans la consol
 -Modifier/Supprimer un Pin que vous avez crée.
 -Modifier ses informations.
 -Se déconnecter.
--Créer des nouveaux utilisateurs.
+-Créer des nouveaux utilisateurs (Avec validation par mailCatcher).
