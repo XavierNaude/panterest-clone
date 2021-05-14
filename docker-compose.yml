@@ -30,11 +30,11 @@ services:
       - dev
 
   maildev:
-    image: maildev/maildev
+    image: schickling/mailcatcher
     container_name: app_maildev
-    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
     ports:
-      - "8081:80"
+      - "1025:1025"
+      - "1080:1080"
     restart: always
     networks:
       - dev
