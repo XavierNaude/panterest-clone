@@ -33,11 +33,7 @@ services:
     image: schickling/mailcatcher
     container_name: app_maildev
     ports:
-      - "1025:1025"
       - "1080:1080"
-    restart: always
-    networks:
-      - dev
 
   app:
     build: ./
