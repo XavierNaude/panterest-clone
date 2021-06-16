@@ -34,6 +34,9 @@ services:
     container_name: app_maildev
     ports:
       - "1080:1080"
+    networks:
+      - dev
+
 
   app:
     build: ./
