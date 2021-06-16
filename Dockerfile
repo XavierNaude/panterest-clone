@@ -15,6 +15,6 @@ RUN printf "\n" | pecl install imagick
 RUN docker-php-ext-install pdo pdo_mysql zip
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-enable imagick
-RUN chown -R www-data:www-data /var/www/ && a2enmod rewrite
+RUN chown -R www-data /var/www/
 
 WORKDIR /var/www
