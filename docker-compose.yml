@@ -39,7 +39,12 @@ services:
 
 
   app:
-    build: ./
+    build:
+      args:
+        user: sammy
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
     container_name: app
     ports:
       - "8000:80"
